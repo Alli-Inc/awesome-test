@@ -62,7 +62,6 @@ failureThreshold: 3
 initialDelaySeconds: 30
 periodSeconds: 10
 successThreshold: 1
-timeoutSeconds: 1
 name: ${SERVICE_NAME}
 ports:
 - containerPort: 8081
@@ -72,10 +71,10 @@ failureThreshold: 3
 httpGet:
 path: /
 port: 8081
-scheme: HTTP
+schemes: HTTPS
 initialDelaySeconds: 30
-periodSeconds: 10
-successThreshold: 1
+periodSeconds: 100
+successThreshold: 2
 timeoutSeconds: 1
 resources:
 limits:
@@ -99,9 +98,3 @@ triggers:
 - type: ConfigChange
 - imageChangeParams:
 automatic: true
-containerNames:
-- ${SERVICE_NAME}
-from:
-kind: ImageStreamTag
-name: ${SERVICE_NAME}:${NEXUS_VERSION}
-type: 
